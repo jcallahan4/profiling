@@ -1,22 +1,18 @@
-# profiling.py
-"""Python Essentials: Profiling.
-Jake Callahan
-Section 002
-<Date>
 """
+Profiling
+Jake Callahan
 
-# Note: for problems 1-4, you need only implement the second function listed.
-# For example, you need to write max_path_fast(), but keep max_path() unchanged
-# so you can do a before-and-after comparison.
-
+Profiling is the process of measuring the complexity and efficiency of a program,
+allowing the programmer to see what parts of the code need to be optimized. In
+this program I present common techniques for speeding up Python code, including
+the built-in profiler and the Numba module.
+"""
 import numpy as np
 import math
 import time
 from numba import jit
 from matplotlib import pyplot as plt
 
-
-# Problem 1
 def max_path(filename="triangle.txt"):
     """Find the maximum vertical path in a triangle of values."""
     with open(filename, 'r') as infile:
@@ -52,8 +48,6 @@ def max_path_fast(filename="triangle_large.txt"):
     #return top value
     return data[0][0]
 
-
-# Problem 2
 def primes(N):
     """Compute the first N primes."""
     primes_list = []
@@ -98,7 +92,6 @@ def primes_fast(N):
 
     return primes_list
 
-# Problem 3
 def nearest_column(A, x):
     """Find the index of the column of A that is closest to x.
 
@@ -128,7 +121,6 @@ def nearest_column_fast(A, x):
     #Subtract x from A, get the norms, and find the minimum
     return np.argmin(np.linalg.norm(A - np.transpose([x]), axis=0))
 
-# Problem 4
 def name_scores(filename="names.txt"):
     """Find the total of the name scores in the given file."""
     #Read in name file and sort
@@ -167,7 +159,6 @@ def name_scores_fast(filename='names.txt'):
     total = values * np.arange(1, num_names + 1)
     return total.sum()
 
-# Problem 5
 def fibonacci():
     """Yield the terms of the Fibonacci sequence with F_1 = F_2 = 1."""
     #Base case 1
@@ -197,8 +188,6 @@ def fibonacci_digits(N=1000):
             break
     return i + 1
 
-
-# Problem 6
 def prime_sieve(N):
     """Yield all primes that are less than N."""
     #Get list of numbers up to N
@@ -209,7 +198,6 @@ def prime_sieve(N):
         yield nums[0]
         nums = [num for num in nums if num % nums[0] != 0]
 
-# Problem 7
 def matrix_power(A, n):
     """Compute A^n, the n-th power of the matrix A."""
     product = A.copy()
@@ -225,7 +213,7 @@ def matrix_power(A, n):
             product[i] = temporary_array
     return product
 
-#Decorate with numba for ludicrous speed
+#Decorate with numba for more speed
 @jit
 def matrix_power_numba(A, n):
     """Compute A^n, the n-th power of the matrix A, with Numba optimization."""
@@ -242,7 +230,7 @@ def matrix_power_numba(A, n):
             product[i] = temporary_array
     return product
 
-def prob7(n=10):
+def time_powers(n=10):
     """Time matrix_power(), matrix_power_numba(), and np.linalg.matrix_power()
     on square matrices of increasing size. Plot the times versus the size.
     """
